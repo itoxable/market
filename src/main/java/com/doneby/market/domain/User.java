@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
+@Entity(name="_user")
 public class User extends BaseEntity {
 
     @Id
@@ -14,6 +14,11 @@ public class User extends BaseEntity {
     @Column
     private String name;
 
+    @Column
+    private String email;
+
+    @OneToMany(mappedBy="userId")
+    private List<Address> addresses;
 
     public String getEmail() {
         return email;
@@ -23,8 +28,7 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    @Column
-    private String email;
+
 
     public List<Address> getAddresses() {
         return addresses;
@@ -34,8 +38,7 @@ public class User extends BaseEntity {
         this.addresses = addresses;
     }
 
-    @OneToMany
-    private List<Address> addresses;
+
 
 
     public Long getId() {

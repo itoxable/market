@@ -1,15 +1,15 @@
 package com.doneby.market.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Address extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+//    @ForeignKey()
+    private Long userId;
 
     public String getPostCode() {
         return postCode;
@@ -19,12 +19,10 @@ public class Address extends BaseEntity {
         this.postCode = postCode;
     }
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
