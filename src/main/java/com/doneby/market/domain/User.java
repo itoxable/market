@@ -1,9 +1,11 @@
 package com.doneby.market.domain;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
 import java.util.List;
 
+@ToString(callSuper = true)
 @Entity(name="_user")
 public class User extends BaseEntity {
 
@@ -12,10 +14,16 @@ public class User extends BaseEntity {
     private Long id;
 
     @Column
-    private String name;
+    private String firstName;
+
+    @Column
+    private String lastName;
 
     @Column
     private String email;
+
+    @Column()
+    private String password;
 
     @OneToMany(mappedBy="userId")
     private List<Address> addresses;
@@ -28,8 +36,6 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-
-
     public List<Address> getAddresses() {
         return addresses;
     }
@@ -39,21 +45,39 @@ public class User extends BaseEntity {
     }
 
 
+    public String getFirstName() {
+        return firstName;
+    }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }

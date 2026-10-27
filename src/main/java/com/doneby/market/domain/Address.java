@@ -1,22 +1,29 @@
 package com.doneby.market.domain;
 
 import jakarta.persistence.*;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 @Entity
 public class Address extends BaseEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
-//    @ForeignKey()
+    private String address;
+    private String address2;
+    private String postcode;
+    private String city;
+    private String country;
+
     private Long userId;
 
-    public String getPostCode() {
-        return postCode;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public Long getId() {
@@ -27,5 +34,13 @@ public class Address extends BaseEntity {
         this.id = id;
     }
 
-    private String postCode;
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+
 }

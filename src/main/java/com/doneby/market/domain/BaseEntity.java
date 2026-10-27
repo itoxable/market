@@ -3,12 +3,12 @@ package com.doneby.market.domain;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.ToString;
 
-public class BaseEntity {
+@ToString(callSuper = true)
+public abstract class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long id;
+    protected Long id;
 
     public String getName() {
         return name;

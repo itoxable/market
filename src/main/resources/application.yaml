@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   application:
     name: market
@@ -9,12 +11,5 @@ spring:
     password: 123456
     username: liferay
     url: jdbc:postgresql://localhost:5432/market
-
-
-db:
-  driverClassName: org.postgresql.Driver
-  password: 123456
-  username: liferay
-  url: jdbc:postgresql://localhost:5432/market
 
 
