@@ -26,7 +26,8 @@ public class UserController {
 
     @GetMapping(path="/{id}")
     public @ResponseBody User getUser(@PathVariable("id") Long id) {
-        System.out.println("ID: " + id);
+        System.out.println("ID: " + id + "; " + "adfsdgfs".intern());
+        //ThreadLocal.withInitial((x) -> System.out.println(x));
         try{
             User user = userRepository.getReferenceById(id);
             System.out.println(user);
@@ -74,5 +75,7 @@ public class UserController {
     public void deleteUserAddress(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         System.out.println("Delete ID: " + id);
         addressRepository.deleteById(id);
+
+
     }
 }

@@ -2,19 +2,21 @@ package com.doneby.market.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.ToString;
 
 import java.util.List;
 
-@ToString(callSuper = true)
+@ToString(callSuper = true, includeFieldNames=true)
 @Entity(name="_user")
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
     @Column
+    @NotNull
     private String firstName;
 
     @Column
@@ -25,6 +27,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column()
+    @NotNull
     private String password;
 
     @OneToMany(mappedBy="userId")

@@ -1,19 +1,27 @@
 package com.doneby.market.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.ToString;
 
-@ToString(callSuper = true)
+@ToString(callSuper = true, includeFieldNames=true)
 @Entity
 public class Address extends BaseEntity {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String address;
     private String address2;
+
+    @NotNull
     private String postcode;
+
+    @NotNull
     private String city;
+
+    @NotNull
     private String country;
 
     private Long userId;

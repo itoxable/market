@@ -5,12 +5,12 @@ import lombok.ToString;
 
 import java.util.List;
 
-@ToString(callSuper = true)
+@ToString(callSuper = true, includeFieldNames=true)
 @Entity(name="_order")
 public class Order extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
     private Long userId;

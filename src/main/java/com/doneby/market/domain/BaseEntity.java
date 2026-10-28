@@ -5,7 +5,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.ToString;
 
-@ToString(callSuper = true)
+@ToString(callSuper = true, includeFieldNames=true)
 public abstract class BaseEntity {
 
     protected Long id;
