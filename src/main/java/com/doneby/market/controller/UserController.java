@@ -4,6 +4,9 @@ import com.doneby.market.domain.Address;
 import com.doneby.market.domain.User;
 import com.doneby.market.repository.AddressRepository;
 import com.doneby.market.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+    private final static Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -22,7 +27,15 @@ public class UserController {
     @GetMapping(path="/{id}")
     public @ResponseBody User getUser(@PathVariable("id") Long id) {
         System.out.println("ID: " + id);
-        return userRepository.getReferenceById(id);
+        try{
+            User user = userRepository.getReferenceById(id);
+            System.out.println(user);
+            return user;
+        } catch (EntityNotFoundException e) {
+            e.printStackTrace();
+            LOG.info("Err: " + e.getMessage());
+        }
+        return null;
     }
 
     @PostMapping(path="/")

@@ -11,5 +11,7 @@ spring:
     password: 123456
     username: liferay
     url: jdbc:postgresql://localhost:5432/market
+  jackson:
+    default-property-inclusion:
 
 

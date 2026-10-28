@@ -6,7 +6,7 @@ import lombok.ToString;
 import java.util.List;
 
 @ToString(callSuper = true)
-@Entity
+@Entity(name="_order")
 public class Order extends BaseEntity {
 
     @Id
@@ -15,6 +15,6 @@ public class Order extends BaseEntity {
 
     private Long userId;
 
-    @OneToMany(mappedBy="userId")
+    @ManyToMany
     private List<Product> products;
 }

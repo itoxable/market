@@ -1,6 +1,7 @@
 package com.doneby.market.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.ToString;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class User extends BaseEntity {
     @Column
     private String lastName;
 
+    @Email(message = "Please provide a valid email address")
     @Column
     private String email;
 
