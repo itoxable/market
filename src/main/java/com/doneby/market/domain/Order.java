@@ -15,6 +15,6 @@ public class Order extends BaseEntity {
 
     private Long userId;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Product> products;
 }

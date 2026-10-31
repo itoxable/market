@@ -7,8 +7,11 @@ import com.doneby.market.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -18,35 +21,48 @@ public class UserController {
 
     private final static Logger LOG = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private AddressRepository addressRepository;
 
+    public UserController(UserRepository userRepository, AddressRepository addressRepository) {
+        this.userRepository = userRepository;
+        this.addressRepository = addressRepository;
+    }
+
+   // @ResponseStatus(HttpStatus.NOT_FOUND)
     @GetMapping(path="/{id}")
-    public @ResponseBody User getUser(@PathVariable("id") Long id) {
+    public User getUser(@PathVariable("id") long id) {
+        if(id == 3) {
+            return null;
+        }
         System.out.println("ID: " + id + "; " + "adfsdgfs".intern());
+//        var arena = Arena.global();
+//        arena.allocate()
         //ThreadLocal.withInitial((x) -> System.out.println(x));
         try{
             User user = userRepository.getReferenceById(id);
             System.out.println(user);
             return user;
+            //return ResponseEntity.status(HttpStatus.OK).body(user);
         } catch (EntityNotFoundException e) {
             e.printStackTrace();
             LOG.info("Err: " + e.getMessage());
-        }
+            // ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+           // throw new HttpClientErrorException(HttpStatusCode.valueOf(404));
+        }//HttpStatusCode
         return null;
     }
 
+   // @ResponseStatus(HttpStatus.BAD_REQUEST)
     @PostMapping(path="/")
-    public @ResponseBody User addUser(@RequestBody User user) {
+    public User addUser(@RequestBody User user) {
         System.out.println("User: " + user);
         return userRepository.save(user);
     }
 
     @PutMapping(path="/")
-    public @ResponseBody User updateUser(@RequestBody User user) {
+    public User updateUser(@RequestBody User user) {
         User currentUser = userRepository.getReferenceById(user.getId());
         System.out.println("User: " + user);
         return userRepository.save(user);
@@ -59,12 +75,14 @@ public class UserController {
     }
 
     @GetMapping(path="/")
-    public @ResponseBody List<User> getAllUser() {
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
+    //@ResponseStatus(HttpStatus.NOT_FOUND)
     @PostMapping(path="/{id}/address")
-    public @ResponseBody Address addAddress(@RequestBody Address address, @PathVariable("id") Long id) {
+    @ExceptionHandler
+    public Address addAddress(@RequestBody Address address, @PathVariable("id") Long id) {
         User currentUser = userRepository.getReferenceById(id);
         System.out.println("User: " + currentUser);
         address.setUserId(currentUser.getId());
