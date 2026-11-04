@@ -4,6 +4,13 @@ logging:
   level:
     com.doneby: debug
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        exclude: "env,beans"
+
 spring:
   application:
     name: market

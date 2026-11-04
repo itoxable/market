@@ -26,18 +26,18 @@ public class SecurityConfig {
         return (web) -> web.ignoring()
                 // Spring Security should completely ignore URLs starting with /resources/
 
-                .requestMatchers("/resources/**", "/api/user/");
+                .requestMatchers("/resources/**", "/api/user/", "/healthcheck/**", "/actuator/**");
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/public/**", "/healthcheck/**", "/actuator/**").permitAll()
                         .anyRequest().hasRole("USER"))
                 // Possibly more configuration ...
                 .formLogin((formLogin) ->
                         formLogin
-                                .usernameParameter("password")
+                                .usernameParameter("username")
                                 .passwordParameter("password")
                                 .loginPage("/authentication/login")
                                 .failureUrl("/authentication/login?failed")
